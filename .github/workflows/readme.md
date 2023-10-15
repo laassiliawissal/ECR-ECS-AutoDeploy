@@ -65,7 +65,7 @@ aws ecr create-reppository --repository-name my-first-repo
 Check your repo is created successfully, run:  
 ```node.js
 # list the repository within your current region
-aws ecr describe-reppositories
+aws ecr describe-repositories
 
 ```
 
