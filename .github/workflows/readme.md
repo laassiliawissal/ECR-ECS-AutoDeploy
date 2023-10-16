@@ -191,8 +191,30 @@ aws ecs create-service --cluster hello-world-cluster \
 TroubleShooting:
 
 
- update the task def, and register  it:
+#update the task def, and register  it:
 
 aws ecs register-task-definition --cli-input-json file://task-definition.json
+
+#update the service with the new task
+aws ecs update-service --cluster hello-world-cluster --service hello-world-service --task-definition nginx  
+
+
+
+
+To see the Docker images that have been pushed to an Amazon Elastic Container Registry (ECR), you can use the AWS CLI or the AWS Management Console. Here are the steps for both methods:
+
+Using the AWS CLI:
+Open your terminal or command prompt.
+Use the following AWS CLI command to list the images in your ECR repository:
+bash
+Copy code
+aws ecr list-images --repository-name your-repository-name
+Replace your-repository-name with the name of your ECR repository.
+The command will return a list of image IDs. To get more details about a specific image, use the describe-images command:
+bash
+Copy code
+aws ecr describe-images --repository-name your-repository-name --image-ids imageTag=your-image-tag
+Replace your-image-tag with the image tag of the specific image you want to inspect.
+
 
 
