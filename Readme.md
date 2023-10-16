@@ -1,66 +1,17 @@
 ## Welcome to AWS ECR CES AUTDEPLOY
 
-## In this Repository you will build and push a container Image to aws ECR, and  then Deploy a new Task Definition to aws ECS
+<h1>Setting Up and Running the Amazon ECS Deployment Workflow</h1>
 
+Welcome to this repository! In this README, we'll walk you through the process of setting up and running a powerful GitHub Actions workflow designed to automate the deployment of your containerized application to Amazon Elastic Container Service (ECS). This workflow streamlines the deployment process, making it more efficient and reliable.
+<!--
 **ECR**: Stands for Amazon Elastic Container Registry, where container images are stored.  
 **ECS**: Stands for Amazon Elastic Container Service, where containerized applications are run.   
 **Auto-Deploy**: Indicates that the repository automates the deployment process.   
-
-
+-->
 
 
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a name="readme-top"></a>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
-
-
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
-
-
-<!-- PROJECT LOGO -->
-<br />
-<div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
-
-  <h3 align="center">Best-README-Template</h3>
-
-  <p align="center">
-    An awesome README template to jumpstart your projects!
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
-  </p>
-</div>
-
 
 
 <!-- TABLE OF CONTENTS -->
@@ -94,18 +45,30 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+This GitHub Actions workflow is designed to automate the deployment of a containerized application to Amazon Elastic Container Service (ECS) when changes are pushed to the "main" branch of a GitHub repository. Here's a breakdown of what each part of the workflow does:
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
-
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
-
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
-
-Use the `BLANK_README.md` to get started.
+Workflow Setup and Configuration:
+The workflow is named "Deploy to Amazon ECS."
+It is triggered to run when there is a push to the "main" branch.
+It defines several environment variables used throughout the workflow, including the AWS region, the Amazon Elastic Container Registry (ECR) repository name, ECS service name, ECS cluster name, the path to the ECS task definition JSON file, and the name of the container.
+Permissions:
+The permissions section specifies that the workflow should have read access to the contents of the repository.
+Jobs:
+The workflow defines a single job named "Deploy" that runs on an ubuntu-latest virtual machine environment.
+Job Steps:
+Checkout:
+This step checks out the code from the GitHub repository using actions/checkout@v3.
+Configure AWS credentials:
+This step configures AWS credentials using the aws-actions/configure-aws-credentials action. It reads the AWS access key and secret access key from GitHub Actions secrets and sets the AWS region.
+Login to Amazon ECR:
+This step logs in to the Amazon Elastic Container Registry (ECR) using the aws-actions/amazon-ecr-login action. This is necessary to push Docker images to the ECR repository.
+Build, tag, and push image to Amazon ECR:
+This step builds a Docker image using the code in the repository and pushes it to the specified ECR repository. It tags the image with the GitHub SHA. The Docker image is essential for deploying the application on ECS.
+Fill in the new image ID in the Amazon ECS task definition:
+This step updates the ECS task definition with the new Docker image ID. It uses the aws-actions/amazon-ecs-render-task-definition action to achieve this.
+Deploy Amazon ECS task definition:
+Finally, this step deploys the updated ECS task definition to Amazon ECS using the aws-actions/amazon-ecs-deploy-task-definition action. It specifies the ECS service, cluster, and waits for the service to reach a stable state.
+In summary, this workflow automates the process of building, pushing, and deploying a Docker container image to Amazon ECS whenever there is a push to the "main" branch of the repository. It's a typical CI/CD pipeline for containerized applications running on AWS infrastructure.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
