@@ -26,7 +26,7 @@
       }
     ],
     "volumes": [],
-    "networkMode": "bridge",
+    "networkMode": "awsvpc",
     "placementConstraints": [],
     "family": "nginx"
   }
