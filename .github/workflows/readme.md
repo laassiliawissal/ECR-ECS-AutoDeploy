@@ -70,8 +70,113 @@ aws ecr describe-repositories
 ```
 
 <h3>Create an ECS task definition, an ECS cluster, and an ECS service</h3>  
+<h4> Create an ECS task definition </h4>
+
+````
+#create ECS task definition
+(base) laassiliawissal@MBPdeLaassilia ECR-ECS-AutoDeploy % aws ecs register-task-definition --cli-input-json file://task-definition.json 
+
+```
+
+```
+#list task definition in ECS
+(base) laassiliawissal@MBPdeLaassilia ECR-ECS-AutoDeploy % aws ecs list-task-definitions
+{
+    "taskDefinitionArns": [
+        "arn:aws:ecs:us-east-1:147147982092:task-definition/hello-world-task:1"
+    ]
+}
+
+```
+
+<h4> Create an ECS cluster </h4>
+`````
+#create an  ECS Cluster
+aws ecs create-cluster --cluster-name hello-world-cluster
+#list ECS Clusters
+aws ecs list-clusters
+``
+
+
+
+<h4> Create an ECS service </h4>
+
+1. Naming
+Application Name: hello-world-app
+Cluster Name: hello-world-cluster
+Service Name: hello-world-service
+Task Definition Family: hello-world-task
+Container Name: hello-world-container
 
 <!--
+VPC ID: vpc-003915be8c017d689
+Subnet ID 1: subnet-0e8463235bdd567e1
+Subnet ID 2: "subnet-0e8463235bdd567e1
+aws ec2 describe-subnets --filters "Name=vpc-id,Values=vpc-003915be8c017d689"
+-->
+
+
+`````
+#get your VPC Id
+aws ec2 describe-vpcs --query 'Vpcs[0].VpcId' --output text
+
+# get you Subnet ID, rplace c
+aws ec2 describe-subnets --filters "Name=vpc-id,Values=your-vpc-id"
+
+# get subnet of a specific AZ
+aws ec2 describe-subnets --filters "Name=availability-zone,Values=us-east-1a,us-east-1b"
+
+``
+
+2. Create a Security Group:
+
+``````
+# Create a Securiry Group
+aws ec2 create-security-group --group-name hello-world-sg --description "Security group for Hello World app" --vpc-id your-vpc-id
+
+# list security Groups
+aws ec2 describe-security-groups
+aws ec2 describe-security-groups --filters "Name=group-name,Values=hello-world-sg"
+
+``
+
+cluster hello-world-cluster
+service-name hello-world-service
+task-definition hello-world-task 
+task-definition file named task-definition
+repository-name my-first-repo
+containe name: "hello-world-container",
+            and "image": "nginx:latest",
+
+
+
+``````
+# Create ECS Service
+
+aws ecs create-service --cluster hello-world-cluster \
+  --service-name hello-world-service \
+  --task-definition hello-world-task \
+  --desired-count 1 \
+  --launch-type EC2 \
+  --network-configuration "awsvpcConfiguration={subnets=['your-subnet-1','your-subnet-2'],securityGroups=['your-sg-id']}"
+
+# List ECS Service
+
+aws ecs list-services --cluster hello-world-cluster
+
+
+
+``````
+
+<!--
+aws ecs create-service --cluster hello-world-cluster \
+  --service-name hello-world-service \
+  --task-definition hello-world-task \
+  --desired-count 1 \
+  --launch-type EC2 \
+  --network-configuration "awsvpcConfiguration={subnets=['subnet-0e8463235bdd567e1','subnet-0e8463235bdd567e1'],securityGroups=['sg-0aa7a3e98a77d1061']}"
+
+
 <h1> title </h1>
 <h2> title </h2>
 <h3> title </h3>

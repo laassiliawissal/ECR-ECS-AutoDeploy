@@ -279,3 +279,266 @@ Use this space to list resources you find helpful and would like to give credit 
 [Bootstrap-url]: https://getbootstrap.com
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com 
+
+
+
+/*Task definition 
+
+{
+    "family": "",
+    "taskRoleArn": "",
+    "executionRoleArn": "",
+    "networkMode": "none",
+    "containerDefinitions": [
+        {
+            "name": "",
+            "image": "",
+            "repositoryCredentials": {
+                "credentialsParameter": ""
+            },
+            "cpu": 0,
+            "memory": 0,
+            "memoryReservation": 0,
+            "links": [
+                ""
+            ],
+            "portMappings": [
+                {
+                    "containerPort": 0,
+                    "hostPort": 0,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "entryPoint": [
+                ""
+            ],
+            "command": [
+                ""
+            ],
+            "environment": [
+                {
+                    "name": "",
+                    "value": ""
+                }
+            ],
+            "environmentFiles": [
+                {
+                    "value": "",
+                    "type": "s3"
+                }
+            ],
+            "mountPoints": [
+                {
+                    "sourceVolume": "",
+                    "containerPath": "",
+                    "readOnly": true
+                }
+            ],
+            "volumesFrom": [
+                {
+                    "sourceContainer": "",
+                    "readOnly": true
+                }
+            ],
+            "linuxParameters": {
+                "capabilities": {
+                    "add": [
+                        ""
+                    ],
+                    "drop": [
+                        ""
+                    ]
+                },
+                "devices": [
+                    {
+                        "hostPath": "",
+                        "containerPath": "",
+                        "permissions": [
+                            "write"
+                        ]
+                    }
+                ],
+                "initProcessEnabled": true,
+                "sharedMemorySize": 0,
+                "tmpfs": [
+                    {
+                        "containerPath": "",
+                        "size": 0,
+                        "mountOptions": [
+                            ""
+                        ]
+                    }
+                ],
+                "maxSwap": 0,
+                "swappiness": 0
+            },
+            "secrets": [
+                {
+                    "name": "",
+                    "valueFrom": ""
+                }
+            ],
+            "dependsOn": [
+                {
+                    "containerName": "",
+                    "condition": "COMPLETE"
+                }
+            ],
+            "startTimeout": 0,
+            "stopTimeout": 0,
+            "hostname": "",
+            "user": "",
+            "workingDirectory": "",
+            "disableNetworking": true,
+            "privileged": true,
+            "readonlyRootFilesystem": true,
+            "dnsServers": [
+                ""
+            ],
+            "dnsSearchDomains": [
+                ""
+            ],
+            "extraHosts": [
+                {
+                    "hostname": "",
+                    "ipAddress": ""
+                }
+            ],
+            "dockerSecurityOptions": [
+                ""
+            ],
+            "interactive": true,
+            "pseudoTerminal": true,
+            "dockerLabels": {
+                "KeyName": ""
+            },
+            "ulimits": [
+                {
+                    "name": "rss",
+                    "softLimit": 0,
+                    "hardLimit": 0
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "splunk",
+                "options": {
+                    "KeyName": ""
+                },
+                "secretOptions": [
+                    {
+                        "name": "",
+                        "valueFrom": ""
+                    }
+                ]
+            },
+            "healthCheck": {
+                "command": [
+                    ""
+                ],
+                "interval": 0,
+                "timeout": 0,
+                "retries": 0,
+                "startPeriod": 0
+            },
+            "systemControls": [
+                {
+                    "namespace": "",
+                    "value": ""
+                }
+            ],
+            "resourceRequirements": [
+                {
+                    "value": "",
+                    "type": "GPU"
+                }
+            ],
+            "firelensConfiguration": {
+                "type": "fluentd",
+                "options": {
+                    "KeyName": ""
+                }
+            }
+        }
+    ],
+    "volumes": [
+        {
+            "name": "",
+            "host": {
+                "sourcePath": ""
+            },
+            "dockerVolumeConfiguration": {
+                "scope": "task",
+                "autoprovision": true,
+                "driver": "",
+                "driverOpts": {
+                    "KeyName": ""
+                },
+                "labels": {
+                    "KeyName": ""
+                }
+            },
+            "efsVolumeConfiguration": {
+                "fileSystemId": "",
+                "rootDirectory": "",
+                "transitEncryption": "DISABLED",
+                "transitEncryptionPort": 0,
+                "authorizationConfig": {
+                    "accessPointId": "",
+                    "iam": "ENABLED"
+                }
+            },
+            "fsxWindowsFileServerVolumeConfiguration": {
+                "fileSystemId": "",
+                "rootDirectory": "",
+                "authorizationConfig": {
+                    "credentialsParameter": "",
+                    "domain": ""
+                }
+            }
+        }
+    ],
+    "placementConstraints": [
+        {
+            "type": "memberOf",
+            "expression": ""
+        }
+    ],
+(base) laassiliawissal@MBPdeLaassilia ECR-ECS-AutoDeploy % aws ecs register-task-definition --cli-input-json file://task-definition.json 
+{
+    "taskDefinition": {
+        "taskDefinitionArn": "arn:aws:ecs:us-east-1:147147982092:task-definition/hello-world-task:1",
+        "containerDefinitions": [
+            {
+                "name": "hello-world-container",
+                "image": "nginx:latest",
+                "cpu": 256,
+                "memory": 512,
+                "portMappings": [
+                    {
+                        "containerPort": 80,
+                        "hostPort": 80,
+                        "protocol": "tcp"
+                    }
+                ],
+                "essential": true,
+                "environment": [],
+                "mountPoints": [],
+                "volumesFrom": []
+            }
+        ],
+        "family": "hello-world-task",
+        "revision": 1,
+        "volumes": [],
+        "status": "ACTIVE",
+        "placementConstraints": [],
+        "compatibilities": [
+            "EXTERNAL",
+            "EC2"
+        ],
+        "registeredAt": "2023-10-15T08:36:01.174000+01:00",
+        "registeredBy": "arn:aws:iam::147147982092:user/wissal"
+    }
+}
+
+*/

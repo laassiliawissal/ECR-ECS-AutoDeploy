@@ -1,11 +1,12 @@
 {
     "family": "hello-world-task",
+    "networkMode": "awsvpc", 
     "containerDefinitions": [
         {
             "name": "hello-world-container",
             "image": "nginx:latest",
-            "memory": 512,      
-            "cpu": 256,         
+            "memory": 512,
+            "cpu": 256,
             "portMappings": [
                 {
                     "containerPort": 80,
@@ -14,4 +15,5 @@
             ]
         }
     ]
-}
+ }
+ 
