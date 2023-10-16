@@ -168,6 +168,7 @@ aws ecs list-services --cluster hello-world-cluster
 
 ``````
 
+
 <!--
 aws ecs create-service --cluster hello-world-cluster \
   --service-name hello-world-service \
@@ -185,5 +186,13 @@ aws ecs create-service --cluster hello-world-cluster \
 <h6> title </h6>
 --> 
 
+
+
+TroubleShooting:
+
+
+ update the task def, and register  it:
+
+aws ecs register-task-definition --cli-input-json file://task-definition.json
 
 
