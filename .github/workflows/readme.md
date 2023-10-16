@@ -1,6 +1,6 @@
 #
 
-<h1> </h1>
+
 <h3>1. Log in to aws</h3>
 
 **create an admin user**  
@@ -72,13 +72,14 @@ aws ecr describe-repositories
 <h3>Create an ECS task definition, an ECS cluster, and an ECS service</h3>  
 <h4> Create an ECS task definition </h4>
 
-````
+```sh
 #create ECS task definition
 (base) laassiliawissal@MBPdeLaassilia ECR-ECS-AutoDeploy % aws ecs register-task-definition --cli-input-json file://task-definition.json 
 
 ```
 
-```
+
+```js
 #list task definition in ECS
 (base) laassiliawissal@MBPdeLaassilia ECR-ECS-AutoDeploy % aws ecs list-task-definitions
 {
@@ -90,23 +91,25 @@ aws ecr describe-repositories
 ```
 
 <h4> Create an ECS cluster </h4>
-`````
+
+
+```sh
+
 #create an  ECS Cluster
 aws ecs create-cluster --cluster-name hello-world-cluster
 #list ECS Clusters
 aws ecs list-clusters
-``
 
-
+```
 
 <h4> Create an ECS service </h4>
 
-1. Naming
-Application Name: hello-world-app
-Cluster Name: hello-world-cluster
-Service Name: hello-world-service
-Task Definition Family: hello-world-task
-Container Name: hello-world-container
+1. Namings
+- Application Name: hello-world-app  
+- Cluster Name: hello-world-cluster  
+- Service Name: hello-world-service  
+- Task Definition Family: hello-world-task  
+- Container Name: hello-world-container  
 
 <!--
 VPC ID: vpc-003915be8c017d689
@@ -116,7 +119,7 @@ aws ec2 describe-subnets --filters "Name=vpc-id,Values=vpc-003915be8c017d689"
 -->
 
 
-`````
+```sh
 #get your VPC Id
 aws ec2 describe-vpcs --query 'Vpcs[0].VpcId' --output text
 
@@ -126,11 +129,11 @@ aws ec2 describe-subnets --filters "Name=vpc-id,Values=your-vpc-id"
 # get subnet of a specific AZ
 aws ec2 describe-subnets --filters "Name=availability-zone,Values=us-east-1a,us-east-1b"
 
-``
+```
 
 2. Create a Security Group:
 
-``````
+```sh
 # Create a Securiry Group
 aws ec2 create-security-group --group-name hello-world-sg --description "Security group for Hello World app" --vpc-id your-vpc-id
 
@@ -138,8 +141,9 @@ aws ec2 create-security-group --group-name hello-world-sg --description "Securit
 aws ec2 describe-security-groups
 aws ec2 describe-security-groups --filters "Name=group-name,Values=hello-world-sg"
 
-``
+```
 
+<!--
 cluster hello-world-cluster
 service-name hello-world-service
 task-definition hello-world-task 
@@ -147,10 +151,10 @@ task-definition file named task-definition
 repository-name my-first-repo
 containe name: "hello-world-container",
             and "image": "nginx:latest",
+-->
 
 
-
-``````
+```sh
 # Create ECS Service
 
 aws ecs create-service --cluster hello-world-cluster \
@@ -164,9 +168,7 @@ aws ecs create-service --cluster hello-world-cluster \
 
 aws ecs list-services --cluster hello-world-cluster
 
-
-
-``````
+```
 
 
 <!--
@@ -178,43 +180,41 @@ aws ecs create-service --cluster hello-world-cluster \
   --network-configuration "awsvpcConfiguration={subnets=['subnet-0e8463235bdd567e1','subnet-0e8463235bdd567e1'],securityGroups=['sg-0aa7a3e98a77d1061']}"
 
 
-<h1> title </h1>
-<h2> title </h2>
-<h3> title </h3>
-<h4> title </h4>
-<h5> title </h5>
-<h6> title </h6>
 --> 
 
 
 
-TroubleShooting:
+# TroubleShooting:
 
 
-#update the task def, and register  it:
+### Update the task def, and register  it:
+
+```sh
 
 aws ecs register-task-definition --cli-input-json file://task-definition.json
+```
 
-#update the service with the new task
+
+
+### Update the service with the new task
 aws ecs update-service --cluster hello-world-cluster --service hello-world-service --task-definition nginx  
 
 
+To see the Docker images that have been pushed to an Amazon Elastic Container Registry (ECR), you can use the AWS CLI or the AWS Management Console. Here are the steps for using the AWS CLI:   
 
-
-To see the Docker images that have been pushed to an Amazon Elastic Container Registry (ECR), you can use the AWS CLI or the AWS Management Console. Here are the steps for both methods:
-
-Using the AWS CLI:
-Open your terminal or command prompt.
-Use the following AWS CLI command to list the images in your ECR repository:
-bash
-Copy code
+```sh
+#list the images in your ECR repository
 aws ecr list-images --repository-name your-repository-name
-Replace your-repository-name with the name of your ECR repository.
-The command will return a list of image IDs. To get more details about a specific image, use the describe-images command:
-bash
-Copy code
+
+```
+  
+The command will return a list of image IDs. To get more details about a specific image, use the describe-images command:  
+
+```sh
+
 aws ecr describe-images --repository-name your-repository-name --image-ids imageTag=your-image-tag
 Replace your-image-tag with the image tag of the specific image you want to inspect.
 
+```
 
 
