@@ -1,11 +1,11 @@
-# Use the official Nginx image as the base image
-FROM nginx:latest
+# Use a base image that includes the Apache HTTP server
+FROM httpd:latest
 
-# Expose port 80 to the outside world
+# Copy the custom HTML file to the Apache document root
+COPY index.html /usr/local/apache2/htdocs/
+
+# Expose port 80 (the same as the container port in the task definition)
 EXPOSE 80
 
-# Copy any custom configuration files or content to the container, if needed
-# Example: COPY nginx.conf /etc/nginx/nginx.conf
-
-# Start the Nginx web server when the container starts
-CMD ["nginx", "-g", "daemon off;"]
+# The command to start the Apache HTTP server
+CMD ["httpd-foreground"]
